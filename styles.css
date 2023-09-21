@@ -2,6 +2,10 @@
   margin: 0;
 }
 
+:root {
+  --cell-size: 100px;
+}
+
 .title {
   height: 10vh;
   width: 100vw;
@@ -26,6 +30,7 @@ input {
   right: 330px;
   background-color: white;
   border-radius: 10px;
+  cursor: pointer;
 }
 #start-btn:hover {
   border-color: white;
@@ -47,9 +52,12 @@ input {
 
 .cell {
   display: flex;
-  width: 100px;
-  height: 100px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .cell:nth-last-child(1n + 7) {
@@ -66,4 +74,27 @@ input {
 
 .cell:nth-child(1n + 7) {
   border-bottom: none;
+}
+
+.game-board.x .cell:hover::before,
+.game-board.x .cell:hover::after {
+  content: "";
+  height: calc(var(--cell-size) * 0.9);
+  width: calc(var(--cell-size) * 0.1);
+  background-color: lightgrey;
+  position: absolute;
+}
+
+.game-board.x .cell:hover::before {
+  transform: rotate(45deg);
+}
+.game-board.x .cell:hover::after {
+  transform: rotate(-45deg);
+}
+.game-board.o .cell:hover::before {
+  content: "";
+  height: calc(var(--cell-size) * 0.6);
+  width: calc(var(--cell-size) * 0.6);
+  border: 10px solid lightgray;
+  border-radius: 50%;
 }
