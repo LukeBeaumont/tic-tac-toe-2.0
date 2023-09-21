@@ -76,25 +76,38 @@ input {
   border-bottom: none;
 }
 
-.game-board.x .cell:hover::before,
-.game-board.x .cell:hover::after {
+.game-board.x .cell:not(.o):not(.x):hover::before,
+.game-board.x .cell:not(.o):not(.x):hover::after,
+.cell.x::before,
+.cell.x::after {
   content: "";
   height: calc(var(--cell-size) * 0.9);
   width: calc(var(--cell-size) * 0.1);
-  background-color: lightgrey;
+  background-color: lightgray;
   position: absolute;
 }
 
-.game-board.x .cell:hover::before {
+.game-board.x .cell:not(.o):not(.x):hover::before,
+.cell.x::before {
   transform: rotate(45deg);
 }
-.game-board.x .cell:hover::after {
+.game-board.x .cell:not(.o):not(.x):hover::after,
+.cell.x::after {
   transform: rotate(-45deg);
 }
-.game-board.o .cell:hover::before {
+.game-board.o .cell:not(.o):not(.x):hover::before,
+.cell.o::before {
   content: "";
   height: calc(var(--cell-size) * 0.6);
   width: calc(var(--cell-size) * 0.6);
   border: 10px solid lightgray;
   border-radius: 50%;
+}
+
+.cell.x::before,
+.cell.x::after {
+  background-color: black;
+}
+.cell.o::before {
+  border-color: black;
 }
