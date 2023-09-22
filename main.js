@@ -8,6 +8,7 @@ const initPlayers = (() => {
       e.preventDefault();
       getPlayers();
       gamePlay.setTurn();
+      gamePlay.placeMark();
     });
   }
   const createPlayer = (name) => {
@@ -39,5 +40,12 @@ const gamePlay = (() => {
       gameBoard.classList.add("x");
     }
   }
-  return { setTurn };
+
+  function placeMark() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.addEventListener("click", (e) => e.target.classList.add("x"));
+    });
+  }
+  return { setTurn, placeMark };
 })();
