@@ -13,7 +13,6 @@
   flex-direction: column;
   align-items: center;
   margin-top: 15px;
-  position: relative;
 }
 
 h1 {
@@ -26,7 +25,7 @@ input {
 }
 #start-btn {
   margin-top: 10px;
-  position: absolute;
+
   right: 330px;
   background-color: white;
   border-radius: 10px;
