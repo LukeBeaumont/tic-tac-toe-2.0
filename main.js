@@ -8,8 +8,8 @@ const initPlayers = (() => {
       e.preventDefault();
       getPlayers();
       gamePlay.updateTurnDisplay();
-      placeMark.addEventListener();
-      placeMark.setGameboardClass();
+      gamePlay.addEventListener();
+      gamePlay.setGameboardClass();
     });
   }
   const createPlayer = (name) => {
@@ -30,17 +30,6 @@ const initPlayers = (() => {
 initPlayers.addEventListener();
 
 const gamePlay = (() => {
-  function updateTurnDisplay() {
-    const displayScreen = document.querySelector(".text-display");
-    displayScreen.innerText = placeMark.circleTurn
-      ? `Its ${initPlayers.getPlayers().playerTwo.getName()}'s turn`
-      : `Its ${initPlayers.getPlayers().playerOne.getName()}'s turn`;
-  }
-
-  return { updateTurnDisplay };
-})();
-
-const placeMark = (() => {
   let circleTurn = false;
   function switchTurn() {
     circleTurn = !circleTurn;
@@ -51,12 +40,20 @@ const placeMark = (() => {
     cells.forEach((cell) => {
       cell.addEventListener("click", (e) => {
         e.target.classList.add(circleTurn ? "o" : "x");
-        gamePlay.updateTurnDisplay();
         switchTurn();
-        placeMark.setGameboardClass();
+        gamePlay.updateTurnDisplay();
+        gamePlay.setGameboardClass();
       });
     });
   }
+
+  function updateTurnDisplay() {
+    const displayScreen = document.querySelector(".text-display");
+    displayScreen.innerText = circleTurn
+      ? `Its ${initPlayers.getPlayers().playerTwo.getName()}'s turn`
+      : `Its ${initPlayers.getPlayers().playerOne.getName()}'s turn`;
+  }
+
   function setGameboardClass() {
     if (circleTurn) {
       gameBoard.classList.remove("x");
@@ -67,5 +64,5 @@ const placeMark = (() => {
     }
     console.log(circleTurn);
   }
-  return { addEventListener, setGameboardClass, switchTurn };
+  return { addEventListener, setGameboardClass, switchTurn, updateTurnDisplay };
 })();
