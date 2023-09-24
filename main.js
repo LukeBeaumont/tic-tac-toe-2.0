@@ -32,17 +32,9 @@ initPlayers.addEventListener();
 const gamePlay = (() => {
   let circleTurn = false;
   const gameBoard = document.querySelector(".game-board");
-
-  const showCircleTurn = () => {
-    return circleTurn;
-  };
-
-  function switchTurn() {
-    circleTurn = !circleTurn;
-  }
+  const cells = document.querySelectorAll(".cell");
 
   function addEventListener() {
-    const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
       cell.addEventListener("click", (e) => {
         if (
@@ -53,12 +45,22 @@ const gamePlay = (() => {
         else {
           e.target.classList.add(circleTurn ? "o" : "x");
         }
+        if (checkWinnerMod.checkWin(checkWinnerMod.currentClass())) {
+          checkWinnerMod.displayWinner();
+        }
         switchTurn();
         gamePlay.updateTurnDisplay();
         gamePlay.setGameboardClass();
-        // displayWinner();
       });
     });
+  }
+
+  const showCircleTurn = () => {
+    return circleTurn;
+  };
+
+  function switchTurn() {
+    circleTurn = !circleTurn;
   }
 
   function updateTurnDisplay() {
@@ -84,15 +86,49 @@ const gamePlay = (() => {
     updateTurnDisplay,
     showCircleTurn,
     circleTurn,
+    cells,
   };
 })();
 
-function displayWinner() {
-  const winningText = document.querySelector(".winning-message");
-  const winningScreen = document.querySelector(".winning-screen");
+const checkWinnerMod = (() => {
+  const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
 
-  winningText.innerText = gamePlay.showCircleTurn()
-    ? `${initPlayers.getPlayers().playerOne.getName()} has won!`
-    : `${initPlayers.getPlayers().playerTwo.getName()} has won!`;
-  winningScreen.style.display = "flex";
-}
+  function currentClass() {
+    if (gamePlay.showCircleTurn()) {
+      return "o";
+    } else {
+      return "x";
+    }
+  }
+
+  function displayWinner() {
+    const winningText = document.querySelector(".winning-message");
+    const winningScreen = document.querySelector(".winning-screen");
+
+    winningText.innerText = gamePlay.showCircleTurn()
+      ? `${initPlayers.getPlayers().playerTwo.getName()} has won!`
+      : `${initPlayers.getPlayers().playerOne.getName()} has won!`;
+    winningScreen.style.display = "flex";
+  }
+  function checkWin(currentClass) {
+    return winningCombos.some((combo) => {
+      return combo.every((index) => {
+        return gamePlay.cells[index].classList.contains(currentClass);
+      });
+    });
+  }
+  return {
+    displayWinner,
+    checkWin,
+    currentClass,
+  };
+})();
