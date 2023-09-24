@@ -25,9 +25,8 @@ input {
 }
 
 .text-display {
-  border: 1px solid black;
   margin-top: 50px;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 #start-btn {
