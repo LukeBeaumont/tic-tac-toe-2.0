@@ -27,8 +27,6 @@ const initPlayers = (() => {
   return { getPlayers, addEventListener };
 })();
 
-initPlayers.addEventListener();
-
 const gamePlay = (() => {
   let circleTurn = false;
   const gameBoard = document.querySelector(".game-board");
@@ -36,8 +34,11 @@ const gamePlay = (() => {
 
   function addEventListener() {
     cells.forEach((cell) => {
-      cell.addEventListener("click", (e) => {
-        if (
+      cell.addEventListener("click", (e)=>{runGame(e)})
+    }
+ 
+function runGame(e){
+if (
           e.target.classList.contains("x") ||
           e.target.classList.contains("o")
         )
@@ -52,8 +53,8 @@ const gamePlay = (() => {
         gamePlay.updateTurnDisplay();
         gamePlay.setGameboardClass();
       });
-    });
-  }
+    
+  
 
   const showCircleTurn = () => {
     return circleTurn;
@@ -87,10 +88,14 @@ const gamePlay = (() => {
     showCircleTurn,
     circleTurn,
     cells,
+    gameBoard,
   };
-})();
+}})();
 
 const checkWinnerMod = (() => {
+  const winningText = document.querySelector(".winning-message");
+  const winningScreen = document.querySelector(".winning-screen");
+
   const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -111,9 +116,6 @@ const checkWinnerMod = (() => {
   }
 
   function displayWinner() {
-    const winningText = document.querySelector(".winning-message");
-    const winningScreen = document.querySelector(".winning-screen");
-
     winningText.innerText = gamePlay.showCircleTurn()
       ? `${initPlayers.getPlayers().playerTwo.getName()} has won!`
       : `${initPlayers.getPlayers().playerOne.getName()} has won!`;
@@ -130,5 +132,22 @@ const checkWinnerMod = (() => {
     displayWinner,
     checkWin,
     currentClass,
+
+    winningScreen,
   };
 })();
+
+const restart = document.querySelector("#restart");
+restart.addEventListener("click", () => {
+  checkWinnerMod.winningScreen.style.display = "none";
+  gamePlay.cells.forEach(
+    (cell) => {cell.classList.remove("x") || cell.classList.remove("o");
+    cell.removeEventListener("click,")
+  }
+
+  );
+  gamePlay.gameBoard.classList.remove("x") ||
+    gamePlay.gameBoard.classList.remove("o");
+});
+
+initPlayers.addEventListener();
