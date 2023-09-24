@@ -31,10 +31,16 @@ initPlayers.addEventListener();
 
 const gamePlay = (() => {
   let circleTurn = false;
+  const gameBoard = document.querySelector(".game-board");
+
+  const showCircleTurn = () => {
+    return circleTurn;
+  };
+
   function switchTurn() {
     circleTurn = !circleTurn;
   }
-  const gameBoard = document.querySelector(".game-board");
+
   function addEventListener() {
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
@@ -50,6 +56,7 @@ const gamePlay = (() => {
         switchTurn();
         gamePlay.updateTurnDisplay();
         gamePlay.setGameboardClass();
+        // displayWinner();
       });
     });
   }
@@ -69,7 +76,23 @@ const gamePlay = (() => {
       gameBoard.classList.remove("o");
       gameBoard.classList.add("x");
     }
-    console.log(circleTurn);
   }
-  return { addEventListener, setGameboardClass, switchTurn, updateTurnDisplay };
+  return {
+    addEventListener,
+    setGameboardClass,
+    switchTurn,
+    updateTurnDisplay,
+    showCircleTurn,
+    circleTurn,
+  };
 })();
+
+function displayWinner() {
+  const winningText = document.querySelector(".winning-message");
+  const winningScreen = document.querySelector(".winning-screen");
+
+  winningText.innerText = gamePlay.showCircleTurn()
+    ? `${initPlayers.getPlayers().playerOne.getName()} has won!`
+    : `${initPlayers.getPlayers().playerTwo.getName()} has won!`;
+  winningScreen.style.display = "flex";
+}
