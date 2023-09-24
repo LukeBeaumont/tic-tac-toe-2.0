@@ -39,7 +39,14 @@ const gamePlay = (() => {
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
       cell.addEventListener("click", (e) => {
-        e.target.classList.add(circleTurn ? "o" : "x");
+        if (
+          e.target.classList.contains("x") ||
+          e.target.classList.contains("o")
+        )
+          return;
+        else {
+          e.target.classList.add(circleTurn ? "o" : "x");
+        }
         switchTurn();
         gamePlay.updateTurnDisplay();
         gamePlay.setGameboardClass();
