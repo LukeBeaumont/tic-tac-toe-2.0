@@ -31,7 +31,7 @@ const cells = document.querySelectorAll(".cell");
 
 function addEventListener() {
   cells.forEach((cell) => {
-    cell.addEventListener("click", (e) => gamePlay.runGame(e));
+    cell.addEventListener("click", gamePlay.runGame);
   });
 }
 
@@ -141,6 +141,7 @@ restart.addEventListener("click", () => {
   displayScreen.innerText = "Enter players names";
   checkWinnerMod.winningScreen.style.display = "none";
   gamePlay.cells.forEach((cell) => {
+    cell.removeEventListener("click", gamePlay.runGame);
     clearNameInputs();
     cell.classList.remove("x") || cell.classList.remove("o");
   });
