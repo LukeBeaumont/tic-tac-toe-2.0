@@ -27,16 +27,17 @@ const initPlayers = (() => {
   return { getPlayers, addEventListener };
 })();
 
+const cells = document.querySelectorAll(".cell");
+
+function addEventListener() {
+  cells.forEach((cell) => {
+    cell.addEventListener("click", (e) => gamePlay.runGame(e));
+  });
+}
+
 const gamePlay = (() => {
   let circleTurn = false;
   const gameBoard = document.querySelector(".game-board");
-  const cells = document.querySelectorAll(".cell");
-
-  function addEventListener() {
-    cells.forEach((cell) => {
-      cell.addEventListener("click", (e) => runGame(e));
-    });
-  }
 
   function runGame(e) {
     if (e.target.classList.contains("x") || e.target.classList.contains("o"))
@@ -135,7 +136,9 @@ const checkWinnerMod = (() => {
 })();
 
 const restart = document.querySelector("#restart");
+const displayScreen = document.querySelector(".text-display");
 restart.addEventListener("click", () => {
+  displayScreen.innerText = "Enter players names";
   checkWinnerMod.winningScreen.style.display = "none";
   gamePlay.cells.forEach((cell) => {
     clearNameInputs();
