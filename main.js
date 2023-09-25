@@ -20,10 +20,10 @@ const initPlayers = (() => {
   function getPlayers() {
     const playerOne = createPlayer(playerOneName.value);
     const playerTwo = createPlayer(playerTwoName.value);
-    console.log(playerOne.getName());
-    console.log(playerTwo.getName());
+
     return { playerOne, playerTwo };
   }
+
   return { getPlayers, addEventListener };
 })();
 
@@ -34,27 +34,23 @@ const gamePlay = (() => {
 
   function addEventListener() {
     cells.forEach((cell) => {
-      cell.addEventListener("click", (e)=>{runGame(e)})
+      cell.addEventListener("click", (e) => runGame(e));
+    });
+  }
+
+  function runGame(e) {
+    if (e.target.classList.contains("x") || e.target.classList.contains("o"))
+      return;
+    else {
+      e.target.classList.add(circleTurn ? "o" : "x");
     }
- 
-function runGame(e){
-if (
-          e.target.classList.contains("x") ||
-          e.target.classList.contains("o")
-        )
-          return;
-        else {
-          e.target.classList.add(circleTurn ? "o" : "x");
-        }
-        if (checkWinnerMod.checkWin(checkWinnerMod.currentClass())) {
-          checkWinnerMod.displayWinner();
-        }
-        switchTurn();
-        gamePlay.updateTurnDisplay();
-        gamePlay.setGameboardClass();
-      });
-    
-  
+    if (checkWinnerMod.checkWin(checkWinnerMod.currentClass())) {
+      checkWinnerMod.displayWinner();
+    }
+    switchTurn();
+    gamePlay.updateTurnDisplay();
+    gamePlay.setGameboardClass();
+  }
 
   const showCircleTurn = () => {
     return circleTurn;
@@ -89,8 +85,9 @@ if (
     circleTurn,
     cells,
     gameBoard,
+    runGame,
   };
-}})();
+})();
 
 const checkWinnerMod = (() => {
   const winningText = document.querySelector(".winning-message");
@@ -140,14 +137,18 @@ const checkWinnerMod = (() => {
 const restart = document.querySelector("#restart");
 restart.addEventListener("click", () => {
   checkWinnerMod.winningScreen.style.display = "none";
-  gamePlay.cells.forEach(
-    (cell) => {cell.classList.remove("x") || cell.classList.remove("o");
-    cell.removeEventListener("click,")
-  }
-
-  );
+  gamePlay.cells.forEach((cell) => {
+    clearNameInputs();
+    cell.classList.remove("x") || cell.classList.remove("o");
+  });
   gamePlay.gameBoard.classList.remove("x") ||
     gamePlay.gameBoard.classList.remove("o");
+
+  function clearNameInputs() {
+    playerOneName.value = "";
+    playerTwoName.value = "";
+  }
+  return { clearNameInputs };
 });
 
 initPlayers.addEventListener();
