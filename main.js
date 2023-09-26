@@ -48,6 +48,11 @@ const gamePlay = (() => {
     if (checkWinnerMod.checkWin(checkWinnerMod.currentClass())) {
       checkWinnerMod.displayWinner();
     }
+    if (checkWinnerMod.isDraw()) {
+      //checkWinnerMod.displayWinner(draw);
+      console.log("draw");
+    }
+
     switchTurn();
     gamePlay.updateTurnDisplay();
     gamePlay.setGameboardClass();
@@ -113,7 +118,13 @@ const checkWinnerMod = (() => {
     }
   }
 
-  function displayWinner() {
+  function isDraw() {
+    cells.forEach(
+      (cell) => cell.classList.contains("x") || cell.classList.contains("o")
+    );
+  }
+
+  function displayWinner(draw) {
     winningText.innerText = gamePlay.showCircleTurn()
       ? `${initPlayers.getPlayers().playerTwo.getName()} has won!`
       : `${initPlayers.getPlayers().playerOne.getName()} has won!`;
@@ -130,7 +141,7 @@ const checkWinnerMod = (() => {
     displayWinner,
     checkWin,
     currentClass,
-
+    isDraw,
     winningScreen,
   };
 })();
