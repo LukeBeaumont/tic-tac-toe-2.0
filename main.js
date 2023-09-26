@@ -119,9 +119,10 @@ const checkWinnerMod = (() => {
   }
 
   function isDraw() {
-    cells.forEach(
-      (cell) => cell.classList.contains("x") || cell.classList.contains("o")
-    );
+    const cells = document.querySelectorAll(".cell");
+    return [...cells].every((cell) => {
+      return cell.classList.contains("x") || cell.classList.contains("o");
+    });
   }
 
   function displayWinner(draw) {
