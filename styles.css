@@ -132,3 +132,7 @@ input {
 .cell.o::before {
   border-color: black;
 }
+
+.container {
+  display: flex;
+}
