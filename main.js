@@ -170,3 +170,18 @@ restart.addEventListener("click", () => {
 });
 
 initPlayers.addEventListener();
+
+const pvpBtn = document.getElementById("pvp");
+const pveBtn = document.getElementById("pve");
+
+pvpBtn.addEventListener("click", () => {
+  const nameInputs = document.querySelector(".right");
+  nameInputs.style.display = "block";
+});
+
+pveBtn.addEventListener("click", () => {
+  const playerTwoInput = document.getElementById("playerTwoName");
+  const playerTwoLabel = document.querySelector(".player-two");
+  playerTwoInput.style.display = "none";
+  playerTwoLabel.style.display = "none";
+});

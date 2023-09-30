@@ -135,4 +135,13 @@ input {
 
 .container {
   display: flex;
+  gap: 50px;
+}
+
+.left {
+  margin-top: 10px;
+}
+
+.right {
+  display: none;
 }

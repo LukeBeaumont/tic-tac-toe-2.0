@@ -11,7 +11,7 @@
     <div class="title">
       <h1>Tic Tac Toe</h1>
       <div class="container">
-        <form>
+        <form class="left">
           <input type="radio" id="pvp" name="game-type" value="pvp" />
           <label for="pvp">Player vs Player</label><br />
           <input type="radio" id="pve" name="game-type" value="pve" />
@@ -19,10 +19,11 @@
           <input type="radio" id="pve-hard" name="game-type" value="pve-hard" />
           <label for="pve-hard">Player vs Computer (Impossible)</label>
         </form>
-        <form>
+        <form class="right">
           <label for="playerOne">Player 1's name:</label><br />
           <input type="text" id="playerOneName" name="playerOne" /><br />
-          <label for="playerTwo">Player 2's name:</label><br />
+          <label for="playerTwo" class="player-two">Player 2's name:</label
+          ><br />
           <input type="text" id="playerTwoName" name="playerTwo" /><br />
           <button id="start-btn">Start!</button>
         </form>
