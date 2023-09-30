@@ -47,7 +47,10 @@ const gamePlay = (() => {
     }
     if (checkWinnerMod.checkWin(checkWinnerMod.currentClass())) {
       checkWinnerMod.displayWinner();
+    } else if (checkWinnerMod.checkDraw()) {
+      checkWinnerMod.displayWinner(true);
     }
+
     switchTurn();
     gamePlay.updateTurnDisplay();
     gamePlay.setGameboardClass();
@@ -113,11 +116,16 @@ const checkWinnerMod = (() => {
     }
   }
 
-  function displayWinner() {
-    winningText.innerText = gamePlay.showCircleTurn()
-      ? `${initPlayers.getPlayers().playerTwo.getName()} has won!`
-      : `${initPlayers.getPlayers().playerOne.getName()} has won!`;
-    winningScreen.style.display = "flex";
+  function displayWinner(draw) {
+    if (draw) {
+      winningScreen.style.display = "flex";
+      winningText.innerText = "Its a draw!";
+    } else {
+      winningText.innerText = gamePlay.showCircleTurn()
+        ? `${initPlayers.getPlayers().playerTwo.getName()} has won!`
+        : `${initPlayers.getPlayers().playerOne.getName()} has won!`;
+      winningScreen.style.display = "flex";
+    }
   }
   function checkWin(currentClass) {
     return winningCombos.some((combo) => {
@@ -126,11 +134,17 @@ const checkWinnerMod = (() => {
       });
     });
   }
+
+  function checkDraw() {
+    return [...gamePlay.cells].every((cell) => {
+      return cell.classList.contains("x") || cell.classList.contains("o");
+    });
+  }
   return {
     displayWinner,
     checkWin,
     currentClass,
-
+    checkDraw,
     winningScreen,
   };
 })();
