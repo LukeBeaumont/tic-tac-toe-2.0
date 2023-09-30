@@ -171,17 +171,29 @@ restart.addEventListener("click", () => {
 
 initPlayers.addEventListener();
 
+//-----radio buttons------
+
 const pvpBtn = document.getElementById("pvp");
 const pveBtn = document.getElementById("pve");
+const pveImpossible = document.getElementById("pve-hard");
+const nameInputs = document.querySelector(".right");
+const playerTwoInput = document.getElementById("playerTwoName");
+const playerTwoLabel = document.querySelector(".player-two");
 
 pvpBtn.addEventListener("click", () => {
-  const nameInputs = document.querySelector(".right");
   nameInputs.style.display = "block";
+  playerTwoInput.style.display = "inline";
+  playerTwoLabel.style.display = "inline";
 });
 
 pveBtn.addEventListener("click", () => {
-  const playerTwoInput = document.getElementById("playerTwoName");
-  const playerTwoLabel = document.querySelector(".player-two");
+  nameInputs.style.display = "block";
+  playerTwoInput.style.display = "none";
+  playerTwoLabel.style.display = "none";
+});
+
+pveImpossible.addEventListener("click", () => {
+  nameInputs.style.display = "block";
   playerTwoInput.style.display = "none";
   playerTwoLabel.style.display = "none";
 });
