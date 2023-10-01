@@ -52,7 +52,6 @@ const gamePlay = (() => {
     } else if (checkWinnerMod.checkDraw()) {
       checkWinnerMod.displayWinner(true);
     }
-
     switchTurn();
     gamePlay.updateTurnDisplay();
     gamePlay.setGameboardClass();
@@ -200,10 +199,14 @@ pveImpossible.addEventListener("click", () => {
   playerTwoLabel.style.display = "none";
 });
 
-gamePlay.cells.forEach((cell) => {
-  if (cell.classList.contains("x") || cell.classList.contains("o")) {
-    console.log("yes");
-  } else {
-    console.log(cell.dataset.index);
-  }
-});
+function makeComputerMove() {
+  let computerArray = [];
+  gamePlay.cells.forEach((cell) => {
+    if (cell.classList.contains("x") || cell.classList.contains("o")) {
+    } else {
+      computerArray.push(cell.dataset.index);
+    }
+  });
+  let pcMove = computerArray[Math.floor(Math.random() * computerArray.length)];
+  gamePlay.cells[pcMove].classList.add("o");
+}
