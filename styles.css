@@ -48,6 +48,7 @@ input {
   width: 100vw;
   justify-content: center;
   align-content: center;
+  margin-top: 20px;
 }
 
 .winning-screen {
