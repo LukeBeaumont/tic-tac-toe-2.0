@@ -6,12 +6,11 @@ const initPlayers = (() => {
   function addEventListener() {
     startBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      if (pvpBtn.checked) {
-        getPlayers();
-        gamePlay.updateTurnDisplay();
-        gamePlay.addEventListener();
-        gamePlay.setGameboardClass();
-      }
+
+      getPlayers();
+      gamePlay.updateTurnDisplay();
+      gamePlay.addEventListener();
+      gamePlay.setGameboardClass();
     });
   }
   const createPlayer = (name) => {
@@ -52,7 +51,11 @@ const gamePlay = (() => {
     } else if (checkWinnerMod.checkDraw()) {
       checkWinnerMod.displayWinner(true);
     }
-    switchTurn();
+    if (pvpBtn.checked) {
+      switchTurn();
+    } else {
+      makeComputerMove();
+    }
     gamePlay.updateTurnDisplay();
     gamePlay.setGameboardClass();
   }
