@@ -6,10 +6,12 @@ const initPlayers = (() => {
   function addEventListener() {
     startBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      getPlayers();
-      gamePlay.updateTurnDisplay();
-      gamePlay.addEventListener();
-      gamePlay.setGameboardClass();
+      if (pvpBtn.checked) {
+        getPlayers();
+        gamePlay.updateTurnDisplay();
+        gamePlay.addEventListener();
+        gamePlay.setGameboardClass();
+      }
     });
   }
   const createPlayer = (name) => {
@@ -196,4 +198,12 @@ pveImpossible.addEventListener("click", () => {
   nameInputs.style.display = "block";
   playerTwoInput.style.display = "none";
   playerTwoLabel.style.display = "none";
+});
+
+gamePlay.cells.forEach((cell) => {
+  if (cell.classList.contains("x") || cell.classList.contains("o")) {
+    console.log("yes");
+  } else {
+    console.log(cell.dataset.index);
+  }
 });
