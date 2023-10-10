@@ -9,8 +9,9 @@ const initPlayers = (() => {
 
       getPlayers();
       gamePlay.updateTurnDisplay();
-      gamePlay.addEventListener();
+
       gamePlay.setGameboardClass();
+      gamePlay.addEventListener();
     });
   }
   const createPlayer = (name) => {
@@ -76,12 +77,12 @@ const gamePlay = (() => {
   }
 
   function setGameboardClass() {
-    if (circleTurn) {
-      gameBoard.classList.remove("x");
-      gameBoard.classList.add("o");
-    } else {
+    if (!circleTurn) {
       gameBoard.classList.remove("o");
       gameBoard.classList.add("x");
+    } else {
+      gameBoard.classList.remove("x");
+      gameBoard.classList.add("o");
     }
   }
   return {
@@ -160,11 +161,11 @@ restart.addEventListener("click", () => {
   checkWinnerMod.winningScreen.style.display = "none";
   gamePlay.cells.forEach((cell) => {
     cell.removeEventListener("click", gamePlay.runGame);
-    clearNameInputs();
     cell.classList.remove("x") || cell.classList.remove("o");
   });
-  gamePlay.gameBoard.classList.remove("x") ||
-    gamePlay.gameBoard.classList.remove("o");
+  clearNameInputs();
+  gamePlay.gameBoard.classList.remove("x");
+  gamePlay.gameBoard.classList.remove("o");
 
   function clearNameInputs() {
     playerOneName.value = "";
