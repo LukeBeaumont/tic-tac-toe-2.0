@@ -49,6 +49,9 @@ const gamePlay = (() => {
     }
     if (checkWinnerMod.checkWin(checkWinnerMod.currentClass())) {
       checkWinnerMod.displayWinner();
+      if (!circleTurn) {
+        switchTurn();
+      }
     } else if (checkWinnerMod.checkDraw()) {
       checkWinnerMod.displayWinner(true);
     }
@@ -77,12 +80,12 @@ const gamePlay = (() => {
   }
 
   function setGameboardClass() {
-    if (!circleTurn) {
-      gameBoard.classList.remove("o");
-      gameBoard.classList.add("x");
-    } else {
+    if (circleTurn) {
       gameBoard.classList.remove("x");
       gameBoard.classList.add("o");
+    } else {
+      gameBoard.classList.remove("o");
+      gameBoard.classList.add("x");
     }
   }
   return {
